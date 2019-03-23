@@ -9,12 +9,14 @@
 | | | | 4 新增章节《项目方法顺序》 |
 | | | | 5 新增章节《vue项目打包》 |
 | 20190322 | V0.2 | Jeanrry | 迁移项目 |
+| 20190322 | V0.3 | Jeanrry | 新增章节《部署至 express 服务器》 |
 
 ## 目录
 + 如何运行项目
 + 项目目录介绍
 + 项目方法顺序
 + vue项目打包
++ 部署至 express 服务器
 
 ## 如何运行项目
 | date | version | operator | remark |
@@ -225,6 +227,23 @@ npm run build
 
 ![avatar][生成文件夹路径]
 
+## 部署至 express 服务器
+| date | version | operator | remark |
+| - | - | - | - |
+| 20190322 | V0.1 | Jeanrry | 创建 |
+
+`express` 来自 `node` 全家桶
+
+``` bash
+npm install -g express // 安装 express
+npm install -g express-generator // 安装 express 命令工具
+express helloworld // 创建 express 工程
+cd helloworld
+npm install
+npm start
+```
+
+把打包后的dist文件夹中的全部文件放在public文件夹里,访问 `http://localhost:3000`
 
 
 

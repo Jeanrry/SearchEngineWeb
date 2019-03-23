@@ -1,5 +1,5 @@
 <template>
-  <div class="search-result">
+  <div class="search-result" v-wechat-title="this.title">
     <el-container>
       <el-header>Header</el-header>
       <el-main>
@@ -12,7 +12,19 @@
 
 <script>
 export default {
-  name: 'SearchResult'
+  name: 'SearchResult',
+  data () {
+    return {
+      title: '搜索结果'
+    }
+  },
+  created () {
+    let b = 'blabla'
+    if (this.$route.params.wd) {
+      b = this.$route.params.wd
+    }
+    console.log(b)
+  }
 }
 </script>
 
