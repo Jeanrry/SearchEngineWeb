@@ -72,15 +72,12 @@ export default {
   },
   created () {
     sessionStorage.setItem('token', 'blabla')
-    this.testFunc()
   },
   methods: {
     testFunc () {
       let postData = {
         username: 'yanglao20',
-        password: '25d55ad283aa400af464c76d713c07ad',
-        blalba: true,
-        blablabla: 12
+        password: '25d55ad283aa400af464c76d713c07ad'
       }
       this.postRequest('/rest/elder/login', postData).then(resp => {
         console.log(resp)
@@ -98,14 +95,14 @@ export default {
 
     // 点击某一条搜索建议
     handleSelect (item) {
-      console.log(item.value)
-      this.$router.push(
-        {name: 'SearchResult', params: { wd: item.value }})
+      // console.log(item.value)
+      this.$router.push({name: 'SearchResult', params: { wd: item.value }})
     },
 
     // 搜索按钮触发事件
     handleSearchSubmit () {
       // console.log(this.searchInput)
+      this.$router.push({name: 'SearchResult', params: { wd: this.searchInput }})
     }
   }
 }
