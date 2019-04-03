@@ -5,6 +5,7 @@ import NotFound from '@/components/404'
 import Home from '@/components/Home'
 import SearchResult from '@/components/SearchResult'
 import HelloWorld from '@/components/HelloWorld'
+import Test from '@/components/Main'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       component: SearchResult
     },
     {
+      path: '/searchResult/:keyId',
+      name: 'SearchResultId',
+      component: SearchResult
+    },
+    {
       path: '/helloWorld',
       name: 'HelloWorld',
       component: HelloWorld
@@ -60,6 +66,11 @@ export default new Router({
       redirect: {
         path: '/404'
       }
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: Test
     }
   ]
 })

@@ -7,7 +7,12 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    if (!sessionStorage.getItem('searchPrompt')) {
+      sessionStorage.setItem('searchPrompt', 'false')
+    }
+  }
 }
 </script>
 
