@@ -10,6 +10,7 @@
 | | | | 5 新增章节《vue项目打包》 |
 | 20190322 | V0.2 | Jeanrry | 迁移项目 |
 | 20190322 | V0.3 | Jeanrry | 新增章节《部署至 express 服务器》 |
+| 20190404 | V0.4 | Jeanrry | 新增章节《接口设置》 |
 
 ## 目录
 + 如何运行项目
@@ -17,6 +18,7 @@
 + 项目方法顺序
 + vue项目打包
 + 部署至 express 服务器
++ 接口设置
 
 ## 如何运行项目
 | date | version | operator | remark |
@@ -244,6 +246,55 @@ npm start
 ```
 
 把打包后的dist文件夹中的全部文件放在public文件夹里,访问 `http://localhost:3000`
+
+## 接口设置
+### 状态码
++ 600 查询成功
++ 601 查询失败
++ 602 无结果
+
+### 发送数据
+| 参数 | 参数类型 | 描述 |
+| - | - | - |
+| searchWrod | string | 搜索词 |
+| urrentPage | integer | 当前页码 |
+| pageSize | integer | 页面容量 |
+| baseWeb | string | 暂定是“在xx网站搜索”这个搜索条件 |
+
+### 返回数据
+``` js
+{
+  code:600,
+  msg:"查询成功",
+  data: {
+    total: , // 总数据量
+    yuezhi: , // 总数据量约值，n*(10^m)
+    keyWord: , // 关键词数组，需要这个值在前端高亮显示
+    rows: [
+      {
+        id: , // 搜索结果的主键
+        title: , // 标题
+        url: , // 链接
+        shortUrl: , // 页面显示的短链接
+        timeFactor: , // 搜索结果的页面创建时间
+        summary: // 搜索结果的简略介绍
+      }
+    ]
+  }
+}
+```
+``` js
+{
+  code:601,
+  msg:"查询失败"
+}
+```
+``` js
+{
+  code:602,
+  msg:"无结果"
+}
+```
 
 
 
