@@ -11,6 +11,7 @@
 | 20190322 | V0.2 | Jeanrry | 迁移项目 |
 | 20190322 | V0.3 | Jeanrry | 新增章节《部署至 express 服务器》 |
 | 20190404 | V0.4 | Jeanrry | 新增章节《接口设置》 |
+| 20190520 | V0.4.1| 夜空中最帅的比| 添加后台接口说明|
 
 ## 目录
 + 如何运行项目
@@ -249,50 +250,75 @@ npm start
 
 ## 接口设置
 ### 状态码
-+ 600 查询成功
-+ 601 查询失败
-+ 602 无结果
++ 100 查询成功
++ 102 查询失败
++ 104 无结果
 
 ### 发送数据
 | 参数 | 参数类型 | 描述 |
 | - | - | - |
-| searchWrod | string | 搜索词 |
-| urrentPage | integer | 当前页码 |
+| keyWord | string | 搜索词 |
+| currentPage | integer | 当前页码 |
 | pageSize | integer | 页面容量 |
 | baseWeb | string | 暂定是“在xx网站搜索”这个搜索条件 |
 
 ### 返回数据
+因为两位小同志爬虫的字段名称不一致，所以返回的结果也不同
+- 搜索关键词“ShootMania Storm”返回的结果
 ``` js
 {
-  code:600,
-  msg:"查询成功",
-  data: {
-    total: , // 总数据量
-    yuezhi: , // 总数据量约值，n*(10^m)
-    keyWord: , // 关键词数组，需要这个值在前端高亮显示
-    rows: [
-      {
-        id: , // 搜索结果的主键
-        title: , // 标题
-        url: , // 链接
-        shortUrl: , // 页面显示的短链接
-        timeFactor: , // 搜索结果的页面创建时间
-        summary: // 搜索结果的简略介绍
-      }
-    ]
-  }
+    "result_list": [
+        {
+            "_index": "wegameindex",
+            "_type": "wegame",
+            "_id": "glgiv2oBXYbzLpbtXy7H",
+            "_score": 8.0041065,
+            "_source": {
+                "url": "https://store.ubi.com/cn/games/cn/shootmania-storm---3-players-pack/56c4948988a7e300458b47f6.html",
+                "name": "ShootMania Storm",
+                "price_now": "¥88.00"
+            }
+        }
+    ],
+    "code": 100,
+    "message": "success",
+    "result": "this is result"
+}
+```
+- 从steam搜索“Dota”的结果
+```js
+{
+    "result_list": [
+        {
+            "_index": "steamindex",
+            "_type": "steam",
+            "_id": "ylgkv2oBXYbzLpbtWC4V",
+            "_score": 0.9808292,
+            "_source": {
+                "game_name": "Dota 2",
+                "release_date": "2013-07-09T00:00:00",
+                "game_price": "Free to Play",
+                "game_summary": "每一天全球有数百万玩家化为一百余名Dota英雄展开大战。不论是游戏时间刚满10小时还是1000小时，比赛中总能找到新鲜感。定期的更新则保证游戏性、功能和英雄都能持续发展，Dota 2已真正地焕发了生命。",
+                "price_discount": "-0%",
+                "game_url": "https://store.steampowered.com/app/570/Dota_2/?snr=1_7_7_230_150_1"
+            }
+        }
+    ],
+    "code": 100,
+    "message": "success",
+    "result": "this is result"
 }
 ```
 ``` js
 {
-  code:601,
-  msg:"查询失败"
+  "code":102,
+  "msg":"error"
 }
 ```
 ``` js
 {
-  code:602,
-  msg:"无结果"
+    "code": 104,
+    "message": "empty keyword"
 }
 ```
 
