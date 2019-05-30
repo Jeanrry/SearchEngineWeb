@@ -266,7 +266,8 @@ npm start
 ### 返回数据
 > 赶紧撸前端去
 - 搜索关键词“ShootMania Storm”返回的结果
-``` js{
+``` js
+{
     "result_list": [
         {
             "_index": "steamindex",

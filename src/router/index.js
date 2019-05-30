@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import NotFound from '@/components/404'
-import Home from '@/components/Home'
-import SearchResult from '@/components/SearchResult'
-import HelloWorld from '@/components/HelloWorld'
-import Test from '@/components/Main'
+import NotFound from '@/views/404'
+import Home from '@/views/Home'
+// import SearchResult from '@/views/SearchResult'
+import HelloWorld from '@/views/HelloWorld'
+import Test from '@/views/Main'
 
 Vue.use(Router)
 
@@ -13,14 +13,19 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/Home',
       name: 'Home',
       component: Home
     },
     {
-      path: '/Home',
+      path: '/Home/:keyId',
+      name: 'HomeId',
+      component: Home
+    },
+    {
+      path: '/',
       redirect: {
-        path: '/'
+        path: '/Home'
       }
     },
     {
@@ -42,16 +47,6 @@ export default new Router({
       }
     },
     {
-      path: '/searchResult',
-      name: 'SearchResult',
-      component: SearchResult
-    },
-    {
-      path: '/searchResult/:keyId',
-      name: 'SearchResultId',
-      component: SearchResult
-    },
-    {
       path: '/helloWorld',
       name: 'HelloWorld',
       component: HelloWorld
@@ -62,15 +57,20 @@ export default new Router({
       component: NotFound
     },
     {
+      path: '/test',
+      name: 'test',
+      component: Test
+    },
+    {
+      path: '/test/:keyId',
+      name: 'testId',
+      component: Test
+    },
+    {
       path: '*',
       redirect: {
         path: '/404'
       }
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: Test
     }
   ]
 })

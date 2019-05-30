@@ -16,8 +16,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.6.3",
+    "grade-js": "^1.0.10",
     "mockjs": "^1.0.1-beta3",
     "qs": "^6.6.0",
+    "ugly-ui-vue": "0.0.10",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",
     "vue-router": "^3.0.1",

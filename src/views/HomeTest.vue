@@ -1,24 +1,23 @@
 <template>
   <div class="home" v-wechat-title="this.title">
     <div class="home__header">
-      <el-button class="search-setting" type="text" @click="searchSettingDialogVisible = true">搜索设置</el-button>
+      <ugly-button class="search-setting" text @click="searchSettingDialogVisible = true">搜索设置</ugly-button>
     </div>
-    <el-scrollbar style="height: 100%">
-      <el-row class="logo-body">
-        <el-col
-          class="el-col-xs-offset-10 el-col-sm-offset-10 el-col-md-offset-10 el-col-lg-offset-10 el-col-xl-offset-11"
-          :xs="4" :sm="4" :md="4" :lg="4" :xl="2">
+    <ugly-vertical-scrollbar style="height: 100%">
+      <ugly-row class="logo-body">
+        <ugly-column
+          class="offset-xs-8 offset-sm-8 offset-md-8 offset-lg-9 offset-xl-9 col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2">
           <div>
             <img src="../assets/logo.png" alt="logo">
+            <!--<h1>小胖搜索</h1>-->
           </div>
-        </el-col>
-      </el-row>
-      <el-row class="search-body">
-        <el-col
-          class="el-col-xs-offset-1 el-col-sm-offset-2 el-col-md-offset-6 el-col-lg-offset-6 el-col-xl-offset-8"
-          :xs="22" :sm="20" :md="12" :lg="12" :xl="8">
-          <el-row>
-            <el-col :xs="20" :sm="22" :md="22" :lg="22" :xl="20">
+        </ugly-column>
+      </ugly-row>
+      <!--<img src="https://media.st.dl.bscstorage.net/steam/apps/629760/header.jpg"/>-->
+      <ugly-row class="search-body">
+        <ugly-column class="offset-xs-1 offset-sm-2 offset-md-4 offset-lg-5 offset-xl-6 col-xs-18 col-sm-16 col-md-12 col-lg-10 col-xl-8">
+          <ugly-row>
+            <ugly-column class="col-xs-17 col-sm-18 col-md-18 col-lg-18 col-xl-18">
               <el-input
                 v-if="!searchPrompt"
                 v-model="searchInput"
@@ -40,14 +39,15 @@
                 @keyup.enter.native="handleSearchSubmit">
 
               </el-autocomplete>
-            </el-col>
-            <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="4">
-              <el-button type="primary" ref="searchInputBtn" icon="el-icon-search" @click="handleSearchSubmit">搜索</el-button>
-            </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
-    </el-scrollbar>
+            </ugly-column>
+            <ugly-column class="col-xs-3 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+              <el-button type="primary" class="search-button" ref="searchInputBtn" icon="el-icon-search" @click="handleSearchSubmit">搜索</el-button>
+            </ugly-column>
+          </ugly-row>
+        </ugly-column>
+      </ugly-row>
+      <!--<div style="height: 2000px"></div>-->
+    </ugly-vertical-scrollbar>
 
     <el-dialog title="搜索设置" :visible.sync="searchSettingDialogVisible" width="600px">
       <el-form>
@@ -73,7 +73,7 @@ export default {
   name: 'Home',
   data () {
     return {
-      title: '鼓捣搜索', // 页面title
+      title: '小胖儿搜索', // 页面title
       searchInput: '', // 搜索框 input 绑定数据
       searchPrompt: false, // 搜索联想是否显示
       searchSettingDialogVisible: false, // 搜索设置框是否显示
@@ -141,7 +141,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .home {
     width: 100%;
     height: 100%;
@@ -160,7 +160,7 @@ export default {
     background: rgba(0, 0, 0, 0.2);
   }
   .search-setting {
-    padding-right: 20px;
+    margin-right: 20px;
     color: #fafafa;
   }
   .logo-body {
@@ -168,5 +168,14 @@ export default {
   }
   .search-body {
     padding-bottom: 200px;
+  }
+  .search-input {
+    border-radius: 0;
+  }
+  .search-input input {
+    border-radius: 0;
+  }
+  .search-button {
+    border-radius: 0;
   }
 </style>

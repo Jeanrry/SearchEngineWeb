@@ -5,7 +5,7 @@
         <el-row>
           <el-col class="el-col-lg-offset-2 el-col-xl-offset-3" :xs="0" :sm="4" :md="4" :lg="4" :xl="4"
                   style="text-align: right">
-            <h1 style="padding-right: 20px; float: right">鼓捣搜索</h1>
+            <h1 style="padding-right: 20px; float: right">小胖儿搜索</h1>
             <img src="../assets/logo.png" style="height: 40px; width: 40px; padding: 10px 0" alt="goodle">
           </el-col>
           <el-col :xs="24" :sm="16" :md="12" :lg="10" :xl="10">
@@ -34,7 +34,7 @@
                 </el-autocomplete>
               </el-col>
               <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
-                <el-button type="primary" ref="searchInputBtn" icon="el-icon-search" @click="handleSearchSubmit">搜索</el-button>
+                <el-button type="primary" class="search-button" ref="searchInputBtn" icon="el-icon-search" @click="handleSearchSubmit">搜索</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -95,9 +95,15 @@ export default {
   created () {
     this.searchPrompt = sessionStorage.getItem('searchPrompt') !== 'false'
     console.log(this.$route.params)
+    // 判断路由是否传值
     if (this.$route.params.keyId) {
       this.searchWord = this.$route.params.keyId
-      this.searchInput = sessionStorage.getItem(this.searchWord)
+      // 判断session中是否有数据
+      if (sessionStorage.getItem(this.searchWord)) {
+        this.searchInput = sessionStorage.getItem(this.searchWord)
+      } else {
+        this.searchInput = ''
+      }
     } else {
       let myDate = new Date()
       let md5 = crypto.createHash('md5')
@@ -106,6 +112,7 @@ export default {
     }
     console.log(this.searchWord)
     this.getSearchData()
+    // this.testDjango()
   },
   beforeMount () {
     console.log('beforeMount')
@@ -118,8 +125,6 @@ export default {
   },
   updated () {
     console.log('updated')
-    // console.log(this.$refs.searchInputLabel)
-    // this.$refs.searchInputLabel.blur()
   },
   beforeDestroy () {
     console.log('beforeDestroy')
@@ -128,6 +133,11 @@ export default {
     console.log('destroyed')
   },
   methods: {
+    testDjango () {
+      this.getRequest('http://localhost:8000/api/show_books').then(resp => {
+        console.log(resp)
+      })
+    },
     getSearchData () {
       sessionStorage.setItem(this.searchWord, this.searchInput)
       let postData = {
@@ -190,7 +200,7 @@ export default {
       // console.log('btn点击事件')
       // console.log(this.searchInput)
       console.log(this.$refs.searchInputLabel)
-      this.$refs.searchInputLabel.blur()
+      // this.$refs.searchInputLabel.blur()
       // this.$refs.searchInputLabel.close()
       // this.$router.push({path: '/searchResult', params: {searchVariable: this.searchInput}})
       // this.$router.push({path: 'searchResult/' + this.searchWord})
@@ -225,7 +235,7 @@ export default {
 <style scoped>
   .search-result {
     height: 100%;
-      background-color: #ffffff;
+    background-color: #ffffff;
   }
 
   .el-header {
@@ -254,7 +264,7 @@ export default {
   }
 
   /*.is-horizontal {*/
-    /*overflow-x: hidden;*/
+  /*overflow-x: hidden;*/
   /*}*/
 
   body > .el-container {
@@ -281,5 +291,8 @@ export default {
   }
   .search-result__key-word {
     color: #ff0000
+  }
+  .search-button {
+    border-radius: 0;
   }
 </style>

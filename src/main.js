@@ -3,8 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import UglyUI from 'ugly-ui-vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import './assets/game_logo/iconfont.css'
 
 // 引入封装 axios
 import {postRequest, getRequest, deleteRequest, putRequest, uploadFileRequest} from './api/request'
@@ -13,6 +15,7 @@ import {postRequest, getRequest, deleteRequest, putRequest, uploadFileRequest} f
 import VueWeChatTitle from 'vue-wechat-title'
 
 Vue.use(ElementUI)
+Vue.use(UglyUI)
 Vue.use(VueWeChatTitle)
 
 Vue.config.productionTip = false
