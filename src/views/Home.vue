@@ -246,12 +246,12 @@ export default {
       this.postRequest('/suggest/', postData).then(resp => {
         console.log(resp)
         resp = resp.data
-
+        console.log(resp)
         let code = resp.code
 
         if (code === 100) {
           // 调用 callback 返回建议列表的数据
-          cb(resp.options)
+          cb(resp.res)
         } else if (code === 104) {
           this.$message({
             showClose: true,
