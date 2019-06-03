@@ -240,10 +240,6 @@ export default {
     // 监测input搜索框值改变，可用于联想搜索
     handleInputChange (queryString, cb) {
       console.log(queryString)
-      let results = [
-        {'value': '三全鲜食（北新泾店）'},
-        {'value': 'Hot honey 首尔炸鸡（仙霞路）'}
-      ]
       let postData = {
         keyword: queryString
       }
