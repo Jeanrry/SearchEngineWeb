@@ -16,7 +16,6 @@ export default {
 }
 </script>
 
-<style src="./assets/global.css"></style>
 <!--<style>-->
 <!--#app {-->
 <!--font-family: 'Avenir', Helvetica, Arial, sans-serif;-->
@@ -27,3 +26,6 @@ export default {
 <!--/*margin-top: 60px;*/-->
 <!--}-->
 <!--</style>-->
+<style>
+  @import "./assets/global.css";
+</style>
