@@ -58,7 +58,7 @@
         </ugly-column>
         <!--搜索结果-->
         <ugly-column class="col-xs-20 col-sm-12 col-md-12 col-lg-10 col-xl-10">
-          <p class="total-data">拢共搜到了差不离{{ yuezhi }}条数据</p>
+          <p class="total-data">拢共搜到了差不离{{ total }}条数据</p>
 
           <div v-for="i in dataRows" :key="i._id" class="result-list">
             <a :href="i._source.game_url" target="_blank">
@@ -275,13 +275,15 @@ export default {
     getSearchData () {
       sessionStorage.setItem(this.searchWord, this.searchInput)
       let postData = {
-        searchWrod: this.searchInput,
+        keyword: this.searchInput,
         currentPage: this.currentPage,
         pageSize: 20,
         baseWeb: this.baseWeb
       }
-      this.postRequest('/search', postData).then(resp => {
+      this.postRequest('/search/', postData).then(resp => {
         console.log(resp)
+        resp = resp.data
+
         let code = resp.code
 
         if (code === 100) {
