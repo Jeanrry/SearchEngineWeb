@@ -203,8 +203,6 @@ export default {
     // 判断路由是否传值
     this.getSearchKeyWord()
     // console.log(this.searchWord)
-
-    this.getSearchData()
   },
   mounted () {
     // console.log('mounted')
@@ -222,6 +220,8 @@ export default {
         // 判断session中是否有数据
         if (sessionStorage.getItem(this.searchWord)) {
           this.searchInput = sessionStorage.getItem(this.searchWord)
+
+          this.getSearchData()
         } else {
           this.searchInput = ''
         }

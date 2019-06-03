@@ -27,8 +27,6 @@ Vue.prototype.deleteRequest = deleteRequest
 Vue.prototype.putRequest = putRequest
 Vue.prototype.uploadFileRequest = uploadFileRequest
 
-require('./mock')
-
 // 设置title
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
