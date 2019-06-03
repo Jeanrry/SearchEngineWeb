@@ -27,6 +27,7 @@ axios.interceptors.response.use(data => {
 
 // let base = 'http://218.240.149.149:9000'
 // let base = 'http://localhost:8080'
+// let base = ''
 let base = 'http://localhost:8000'
 
 export const postRequest = (url, params) => {

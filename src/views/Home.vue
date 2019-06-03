@@ -189,9 +189,12 @@ export default {
   },
   watch: {
     $route (to, from) {
-      if (to.path !== from.path) {
-        this.getSearchKeyWord()
-      }
+      console.log(to)
+      console.log(from)
+      console.log(123456789)
+      this.getSearchKeyWord()
+      // if (to.path !== from.path) {
+      // }
     }
   },
   created () {
@@ -236,12 +239,36 @@ export default {
     },
     // 监测input搜索框值改变，可用于联想搜索
     handleInputChange (queryString, cb) {
+      console.log(queryString)
       let results = [
         {'value': '三全鲜食（北新泾店）'},
         {'value': 'Hot honey 首尔炸鸡（仙霞路）'}
       ]
-      // 调用 callback 返回建议列表的数据
-      cb(results)
+      let postData = {
+        keyword: queryString
+      }
+      this.postRequest('/suggest/', postData).then(resp => {
+        console.log(resp)
+        resp = resp.data
+
+        let code = resp.code
+
+        if (code === 100) {
+          // 调用 callback 返回建议列表的数据
+          cb(resp.options)
+        } else if (code === 104) {
+          this.$message({
+            showClose: true,
+            message: '无结果'
+          })
+        } else if (code === 102) {
+          this.$message({
+            showClose: true,
+            message: '查询异常！',
+            type: 'error'
+          })
+        }
+      })
     },
 
     // 点击某一条搜索建议
@@ -261,7 +288,8 @@ export default {
       sessionStorage.setItem(this.searchWord, this.searchInput)
       // this.$router.push({name: 'SearchResult', params: {searchVariable: this.searchWord}})
       this.searchResultDisabled = true
-      this.$router.push({path: '/Home/' + this.searchWord})
+      // this.$router.push({path: '/Home/' + this.searchWord})
+      this.getSearchData()
     },
 
     // 监测搜索建议设置Checkbox变化
