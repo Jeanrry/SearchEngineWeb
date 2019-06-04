@@ -6,8 +6,10 @@
     <!--{{ windowWidth }}-->
     <div :class="searchBody">
       <ugly-column :class="searchBodyLogo">
-        <h1>小胖儿搜索</h1>
-        <img class="logo" src="../assets/logo.png" alt="logo">
+        <router-link to="/home">
+          <h1>小胖儿搜索</h1>
+          <img class="logo" src="../assets/logo.png" alt="logo">
+        </router-link>
       </ugly-column>
       <ugly-column :class="searchBodyInput">
         <ugly-row>
@@ -401,7 +403,7 @@ export default {
     background-color: #ffffff;
   }
   .home--search-result-hide {
-    background-image: url('../assets/bg.jpg');
+    background-image: url('https://open.saintic.com/api/bingPic/');
   }
 
   .logo{
@@ -453,6 +455,7 @@ export default {
     line-height: 60px;
     font-size: 1.5em;
     float: right;
+    color: black;
   }
 
   .input-body--search-result-hide {
