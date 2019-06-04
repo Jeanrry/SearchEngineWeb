@@ -90,7 +90,7 @@
           <el-pagination
             @current-change="handleCurrentChange"
             :current-page.sync="currentPage"
-            :page-size="20"
+            :page-size="10"
             layout="prev, pager, next"
             :total="total">
           </el-pagination>
@@ -106,7 +106,7 @@
         <el-form-item label="搜索框提示" :label-width="formLabelWidth">
           <el-tooltip placement="top">
             <div slot="content">我这么说吧<br/>这个功能我们压根没准备做</div>
-            <el-checkbox v-model="searchPrompt" @change="handleCheckboxChange">显示</el-checkbox>
+            <el-checkbox v-model="searchPrompt" @change="handleCheckboxChange" disabled>显示</el-checkbox>
           </el-tooltip>
         </el-form-item>
       </el-form>
@@ -128,7 +128,7 @@ export default {
       title: '小胖儿搜索', // 页面title
       searchResultDisabled: false, // 搜索结果可见性
       searchInput: '', // 搜索框 input 绑定数据
-      searchPrompt: false, // 搜索联想是否显示
+      searchPrompt: true, // 搜索联想是否显示
       searchSettingDialogVisible: false, // 搜索设置框是否显示
       formLabelWidth: '120px', // 搜索设置框宽度
       searchWord: '', // 搜索关键字在session中的参数？
@@ -142,19 +142,19 @@ export default {
       baseWebList: [
         {
           id: 0,
-          label: 'steam',
+          label: 'STEAM',
           icon: 'icon-steam',
           keyword: 'steam'
         },
         {
           id: 1,
-          label: 'uplay',
+          label: 'UPLAY',
           icon: 'icon-ubicom',
           keyword: 'uplay'
         },
         {
           id: 2,
-          label: 'wegame',
+          label: 'WeGame',
           icon: 'icon-wegame',
           keyword: 'wegame'
         }
@@ -200,7 +200,7 @@ export default {
   created () {
     // sessionStorage.setItem('token', 'blabla')
 
-    this.searchPrompt = sessionStorage.getItem('searchPrompt') !== 'false'
+    this.searchPrompt = sessionStorage.getItem('searchPrompt') !== 'true'
 
     // console.log(this.$route.params)
     // 判断路由是否传值
@@ -301,7 +301,7 @@ export default {
       let postData = {
         keyword: this.searchInput,
         currentPage: this.currentPage,
-        pageSize: 20,
+        pageSize: 10,
         baseWeb: this.baseWeb
       }
       this.postRequest('/search/', postData).then(resp => {
@@ -313,6 +313,38 @@ export default {
         if (code === 100) {
           this.total = resp.total
           this.dataRows = resp.result_list
+          this.baseWeb = resp.station
+          this.baseWebList = []
+          for (let i in this.baseWeb) {
+            if (this.baseWeb[i] === 'steam') {
+              this.baseWebList.push(
+                {
+                  id: 0,
+                  label: 'STEAM',
+                  icon: 'icon-steam',
+                  keyword: 'steam'
+                }
+              )
+            } else if (this.baseWeb[i] === 'wegame') {
+              this.baseWebList.push(
+                {
+                  id: 1,
+                  label: 'UPLAY',
+                  icon: 'icon-ubicom',
+                  keyword: 'uplay'
+                }
+              )
+            } else if (this.baseWeb[i] === 'uplay') {
+              this.baseWebList.push(
+                {
+                  id: 2,
+                  label: 'WeGame',
+                  icon: 'icon-wegame',
+                  keyword: 'wegame'
+                }
+              )
+            }
+          }
         } else if (code === 104) {
           this.$message({
             showClose: true,
@@ -330,13 +362,12 @@ export default {
     // 搜索来源
     handleBaseWebListOnclick (value) {
       this.baseWeb = [ value ]
-      console.log(this.baseWeb)
-      // console.log(value)
+      this.getSearchData()
     },
     // 翻页
     handleCurrentChange (val) {
+      this.currentPage = val
       this.getSearchData()
-      console.log(`当前页: ${val}`)
     },
     // 根据和关键词列表筛选变色
     changeColor (val) {
