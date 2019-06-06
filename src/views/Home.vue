@@ -1,6 +1,6 @@
 <template>
   <div class="home" :class="homeClass" v-wechat-title="this.title">
-    <div v-if="!searchResultDisabled" class="home__header">
+    <div v-if="!searchResultDisabled" class="home__header" :class="backShadow">
       <ugly-button class="search-setting" text @click="searchSettingDialogVisible = true">搜索设置</ugly-button>
     </div>
     <!--{{ windowWidth }}-->
@@ -19,7 +19,8 @@
               v-if="!searchPrompt"
               v-model="searchInput"
               class="search-input"
-              autofocus
+              @focus="handleInputFocus"
+              @blur="handleInputBlur"
               @keyup.enter.native="handleSearchSubmit">
             </el-input>
 
@@ -30,8 +31,9 @@
               class="inline-input"
               :fetch-suggestions="handleInputChange"
               placeholder=""
-              autofocus
               :trigger-on-focus="false"
+              @focus="handleInputFocus"
+              @blur="handleInputBlur"
               @select="handleSelect"
               @keyup.enter.native="handleSearchSubmit">
             </el-autocomplete>
@@ -117,7 +119,7 @@
         <el-button type="primary" @click="searchSettingDialogVisible = false">确 定</el-button>
       </div>
     </el-dialog>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -131,6 +133,7 @@ export default {
       searchResultDisabled: false, // 搜索结果可见性
       searchInput: '', // 搜索框 input 绑定数据
       searchPrompt: true, // 搜索联想是否显示
+      inputOnFocus: false, // 搜索框是否获得焦点
       searchSettingDialogVisible: false, // 搜索设置框是否显示
       formLabelWidth: '120px', // 搜索设置框宽度
       searchWord: '', // 搜索关键字在session中的参数？
@@ -170,10 +173,18 @@ export default {
         'home--search-result-hide': !this.searchResultDisabled
       }
     },
+    backShadow () {
+      return {
+        'back-shadow__show': !this.searchResultDisabled && this.inputOnFocus,
+        'back-shadow__hide': !(!this.searchResultDisabled && this.inputOnFocus)
+      }
+    },
     searchBody () {
       return {
         'searchBody--search-result-show': this.searchResultDisabled,
-        'searchBody--search-result-hide': !this.searchResultDisabled
+        'searchBody--search-result-hide': !this.searchResultDisabled,
+        'back-shadow__show': !this.searchResultDisabled && this.inputOnFocus,
+        'back-shadow__hide': !(!this.searchResultDisabled && this.inputOnFocus)
       }
     },
     searchBodyLogo () {
@@ -238,6 +249,15 @@ export default {
         md5.update(myDate.getTime().toString())
         this.searchWord = md5.digest('hex')
       }
+    },
+    // 监测input搜索框获得焦点
+    handleInputFocus () {
+      this.inputOnFocus = true
+      console.log('focus')
+    },
+    // 监测input搜索框失去焦点
+    handleInputBlur () {
+      this.inputOnFocus = false
     },
     // 监测input搜索框值改变，可用于联想搜索
     handleInputChange (queryString, cb) {
@@ -406,6 +426,13 @@ export default {
     background-image: url('https://open.saintic.com/api/bingPic/');
   }
 
+  .back-shadow__show {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .back-shadow__show{
+
+  }
+
   .logo{
     width: 100%;
     top: 50px;
@@ -415,12 +442,12 @@ export default {
     width: 100%;
     height: 40px;
     text-align: right;
-    background: rgba(0, 0, 0, 0.2);
+    /*background: rgba(0, 0, 0, 0.2);*/
   }
 
   .search-setting {
     margin-right: 20px;
-    color: #fafafa;
+    color: #fff !important;
   }
 
   .searchBody--search-result-show {
