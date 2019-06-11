@@ -147,23 +147,31 @@ export default {
       baseWebList: [
         {
           id: 0,
-          label: 'STEAM',
-          icon: 'icon-steam',
-          keyword: 'steam'
-        },
-        {
-          id: 1,
-          label: 'UPLAY',
-          icon: 'icon-ubicom',
-          keyword: 'uplay'
-        },
-        {
-          id: 2,
-          label: 'WeGame',
-          icon: 'icon-wegame',
-          keyword: 'wegame'
+          label: '',
+          icon: '',
+          keyword: ''
         }
       ]
+      // baseWebList: [
+      //   {
+      //     id: 0,
+      //     label: 'STEAM',
+      //     icon: 'icon-steam',
+      //     keyword: 'steam'
+      //   },
+      //   {
+      //     id: 1,
+      //     label: 'UPLAY',
+      //     icon: 'icon-ubicom',
+      //     keyword: 'uplay'
+      //   },
+      //   {
+      //     id: 2,
+      //     label: 'WeGame',
+      //     icon: 'icon-wegame',
+      //     keyword: 'wegame'
+      //   }
+      // ]
     }
   },
   computed: {
@@ -306,8 +314,9 @@ export default {
       sessionStorage.setItem(this.searchWord, this.searchInput)
       // this.$router.push({name: 'SearchResult', params: {searchVariable: this.searchWord}})
       this.searchResultDisabled = true
-      // this.$router.push({path: '/Home/' + this.searchWord})
+      this.baseWeb = ['steam', 'uplay']
       this.getSearchData()
+      this.$router.push({path: '/Home/' + this.searchWord})
     },
 
     // 监测搜索建议设置Checkbox变化

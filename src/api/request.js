@@ -28,7 +28,7 @@ axios.interceptors.response.use(data => {
 // let base = 'http://218.240.149.149:9000'
 // let base = 'http://localhost:8080'
 // let base = ''
-let base = 'http://192.168.43.32:8000'
+let base = 'http://localhost:8000'
 
 export const postRequest = (url, params) => {
   // 带个token
