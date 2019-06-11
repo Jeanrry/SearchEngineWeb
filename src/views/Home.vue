@@ -109,7 +109,7 @@
       <el-form>
         <el-form-item label="搜索框提示" :label-width="formLabelWidth">
           <el-tooltip placement="top">
-            <div slot="content">我这么说吧<br/>这个功能我们压根没准备做</div>
+            <div slot="content">我这么说吧<br/>你没的选</div>
             <el-checkbox v-model="searchPrompt" @change="handleCheckboxChange" disabled>显示</el-checkbox>
           </el-tooltip>
         </el-form-item>
@@ -507,6 +507,16 @@ export default {
 
   .search-input input {
     border-radius: 0;
+    background-color: transparent;
+  }
+
+  .inline-input input {
+    background-color: transparent;
+    border: solid 2px #ffffff;
+  }
+
+  .inline-input input:focus {
+    background-color: #ffffff;
   }
 
   .search-button {
